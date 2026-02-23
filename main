@@ -1,0 +1,21 @@
+"""
+Forensic Document Validation API.
+
+Architecture:
+    POST /validate → ForensicValidator → PipelineResult → JSON
+
+Agents:
+    Critic  (Llama 3.2) → audits evidence + detects false positives
+    Judge   (Claude)     → final verdict, CAN override rules
+"""
+
+import logging
+import time
+from contextlib import asynccontextmanager
+
+from fastapi import FastAPI, Request
+from fastapi.exceptions import RequestValidationError
+from fastapi.responses import JSONResponse
+
+from app.config import settings
+from app.schemas.
